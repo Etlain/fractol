@@ -6,7 +6,7 @@
 /*   By: mmouhssi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 12:42:15 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/21 15:46:18 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/21 20:59:09 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,28 @@
 
 typedef struct	s_env
 {
+	void *mlx;
+	void *win;
+	void *img;
+	char *data;
 	double x1;
 	double x2;
 	double y1;
 	double y2;
 	double zoom_y;
 	double zoom_x;
+	int	i_max;
+	int b;
 	double c_r;
 	double c_i;
 	double z_r;
 	double z_i;
 }				t_env;
+
+void			put_pixel(char *data, int width, int heigth, int color);
+int				close_hook(void);
+int				key_hook(int keycode, t_env *e);
+int				expose_hook(t_env *e);
+void			ft_mandelbrot(t_env *e);
 
 #endif

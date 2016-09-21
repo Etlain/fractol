@@ -14,7 +14,7 @@ NAME = fractol
 
 LIB = libft/libft.a
 
-SRC = main.c
+SRC = main.c hook.c fractal.c put_pixel.c
 
 PATH_SRC = sources/
 
