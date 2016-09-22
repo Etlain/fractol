@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/21 20:26:24 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/22 17:45:39 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void ft_mandelbrot(t_env *e)
 				e->z_i = 2 * e->z_i * tmp + e->c_i;
 				i++;
 			}
-			if (i == e->i_max)
+			if (i != e->i_max)
 				put_pixel(e->data, x, y, 0xffffff);
 			x++;
 		}

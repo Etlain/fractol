@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/21 20:59:05 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/22 19:02:28 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int main()
 	mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_destroy_image(e.mlx, e.img);
 	mlx_hook(e.win, 2, 1, key_hook, &e);
+	mlx_hook(e.win, 6, 1, pos_mouse, &e);
 	mlx_hook(e.win, 17, 1, close_hook, NULL);
+	mlx_mouse_hook(e.win, mouse_hook, &e);
 	mlx_loop_hook(e.mlx, expose_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);
