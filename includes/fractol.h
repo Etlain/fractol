@@ -6,7 +6,7 @@
 /*   By: mmouhssi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 12:42:15 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/22 19:02:30 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/23 23:27:58 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_env
 	void *win;
 	void *img;
 	char *data;
+	int fractal;
 	double mx;
 	double my;
 	double x1;
@@ -46,5 +47,10 @@ int				expose_hook(t_env *e);
 int				mouse_hook(int button, int x, int y, t_env *e);
 int				pos_mouse(int x, int y, t_env *e);
 void			ft_mandelbrot(t_env *e);
+double			ft_abs_d(double nbr);
+void			ft_julia(t_env *e);
+void			ft_burningship(t_env *e);
+void			ft_fractal(t_env *e);
+void			init_fract(t_env *e);
 
 #endif

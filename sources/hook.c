@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 19:17:24 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/22 19:02:20 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/23 23:51:19 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		expose_hook(t_env *e)
 	{
 		e->img = mlx_new_image(e->mlx, WIDTH, HEIGHT);
 		e->data = mlx_get_data_addr(e->img, &bpp, &sizeline, &endian);
-		ft_mandelbrot(e);
+		ft_fractal(e);
 		mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 		mlx_destroy_image(e->mlx, e->img);
 		e->b = 0;
@@ -44,21 +44,94 @@ int		pos_mouse(int x, int y, t_env *e)
 //	double w;	
 	e->mx = (double)x / e->zoom_x + e->x1;
 	e->my = (double)y / e->zoom_y + e->y1;
-	printf("%f %f\n", e->mx, e->my);
+	printf("%f\n", e->mx);
+	//printf("%f %f\n", e->mx, e->my);
 	return (0);
 }
 
+double	ft_abs_d(double nbr)
+{
+	return (nbr > 0 ? nbr : (nbr * -1));
+}
 
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
+	double middle;
 	if (button == 1)
 	{
-		e->x1 = e->mx - 1;
-		e->x2 = e->mx + 1;
-		e->y1 = e->my - 1;
-		e->y2 = e->my + 1;
-		e->zoom_x = e->zoom_x * 1.1;
-		e->zoom_y = e->zoom_y * 1.1;
+		if (e->x1 < 0)
+			middle = (e->x2 + e->x1) / (double)2.0;
+		else
+			middle = e->x1 + (e->x2 - e->x1) / (double)2.0;
+		printf("middle : %f\n", middle);
+		if (e->mx < middle)
+		{
+			if (middle > 0 && e->mx < 0)
+			{
+				e->x1 -= ft_abs_d(middle + e->mx); //- 1;
+				e->x2 -= ft_abs_d(middle + e->mx); //+ 1;
+			}
+			else
+			{
+				e->x1 -= ft_abs_d(middle - e->mx); //- 1;
+				e->x2 -= ft_abs_d(middle - e->mx);
+			}
+		}
+		else
+		{
+			if (e->mx > 0 && middle < 0)
+			{
+				e->x1 += ft_abs_d(e->mx + middle); //- 1;
+				e->x2 += ft_abs_d(e->mx + middle); //+ 1;
+			}
+			else
+			{
+				printf("cal : %f\n", e->mx);
+				e->x1 += ft_abs_d(e->mx - middle); //- 1;
+				e->x2 += ft_abs_d(e->mx - middle);
+			}
+		}
+		//printf("cal : %f, %f\n", e->x1, e->x2);
+		if (e->y1 < 0)
+			middle = (e->y2 + e->y1) / (double)2.0;
+		else
+			middle = e->y1 + (e->y2 - e->y1) / (double)2.0;
+		if (e->my < middle)
+		{
+			if (middle > 0 && e->my < 0)
+			{
+				e->y1 -= ft_abs_d(middle + e->my); //- 1;
+				e->y2 -= ft_abs_d(middle + e->my); //+ 1;
+			}
+			else
+			{
+				e->y1 -= ft_abs_d(middle - e->my); //- 1;
+				e->y2 -= ft_abs_d(middle - e->my);
+			}
+		}
+		else
+		{
+			if (e->mx > 0 && middle < 0)
+			{
+				e->y1 += ft_abs_d(e->my + middle); //- 1;
+				e->y2 += ft_abs_d(e->my + middle); //+ 1;
+			}
+			else
+			{
+				printf("cal : %f\n", e->my);
+				e->y1 += ft_abs_d(e->my - middle); //- 1;
+				e->y2 += ft_abs_d(e->my - middle);
+			}
+		}
+		e->x1 /= 1.1;
+		e->x2 /= 1.1;
+		e->y1 /= 1.1;
+		e->y2 /= 1.1;
+		e->zoom_x *= 1.1;
+		e->zoom_y *= 1.1;
+		//printf("cal : %f\n", middle);
+		//e->y1 += e->my - e->y1 + middle; //- 1;
+		//e->y2 += e->my - e->y1 + middle; //+ 1;
 		e->b = 1;
 	}
 	/*if (button == 2)
@@ -79,26 +152,26 @@ void	direction(int keycode, t_env *e)
 {
 	if (keycode == 123)
 	{
-		e->x1 -= 0.1 /* /e->zoom */; // depend du zoom
-		e->x2 -= 0.1;
+		e->x1 -= 100 / e->zoom_x ; // depend du zoom
+		e->x2 -= 100 / e->zoom_x;
 		e->b = 1;
 	}
 	if (keycode == 124)
 	{
-		e->x1 += 0.1;
-		e->x2 += 0.1;
+		e->x1 += 100 / e->zoom_x;
+		e->x2 += 100 / e->zoom_x;
 		e->b = 1;
 	}
 	if (keycode == 125)
 	{
-		e->y1 -= 0.1;
-		e->y2 -= 0.1;
+		e->y1 += 100 / e->zoom_y;
+		e->y2 += 100 / e->zoom_y;
 		e->b = 1;
 	}
 	if (keycode == 126)
 	{
-		e->y1 += 0.1;
-		e->y2 += 0.1;
+		e->y1 -= 100 / e->zoom_y;
+		e->y2 -= 100 / e->zoom_y;
 		e->b = 1;
 	}
 	printf("key : %d\n", keycode);
@@ -118,31 +191,39 @@ int		key_hook(int keycode, t_env *e)
 	}
 	else if (keycode == 69)
 	{
-		//e->x1 = e->x1 + 1; // en haut a droite
-		//e->y2 = e->y2 - 1;
-	/*	e->x1 = e->x1 + 1; // en haut a droite
-		e->y2 = e->y2 - 1;	
-	*/	//e->x1 = e->x2 + 0.1;
-		/*e->y2 = e->y2 + 0.01;*/
 		e->zoom_x = e->zoom_x * 1.1;
 		e->zoom_y = e->zoom_y * 1.1;
-		
 		e->b = 1;
-		//mlx_mouse_hook(e->win, mouse_hook, e);
 	}
-	else if (keycode == 78/* && *(int *)env->zoom > 0*/)
+	else if (keycode == 78)
 	{
-		//e->x1 = e->x1 - 1;
-		//e->y2 = e->y2 + 1;
-	/*	e->x1 = e->x2 - 0.01;
-		e->y2 = e->y2 + 0.01;*/
 		e->zoom_x = e->zoom_x / 1.1;
 		e->zoom_y = e->zoom_y / 1.1;
 		e->b = 1;	
 	}
+	else if (keycode == 15)
+	{
+		init_fract(e);
+		e->b = 1;
+	}
+	else if (keycode == 83 || keycode == 18)
+	{
+		e->fractal = 1;
+		init_fract(e);
+		e->b = 1;
+	}
+	else if (keycode == 84 || keycode == 19)
+	{
+		e->fractal = 2;
+		init_fract(e);
+		e->b = 1;
+	}
+	else if (keycode == 85 || keycode == 20)
+	{
+		e->fractal = 3;
+		init_fract(e);
+		e->b = 1;
+	}
 	direction(keycode, e);
-	/*if (keycode >= 123 && keycode <= 126)
-		*(int *)env->p[5] = 1;
-	redraw(env);*/
 	return (0);
 }

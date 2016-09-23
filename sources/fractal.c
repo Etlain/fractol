@@ -6,29 +6,29 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/22 17:45:39 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/23 22:30:20 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
 #include <stdio.h>
-void ft_julia(char *data)
+void ft_julia(t_env *e)
 {
-	double x1 = -1;
+	/*double x1 = -1;
 	double x2 = 1;
 	double y1 = -1.2;
 	double y2 = 1.2;
 	double zoom_y = HEIGHT / (y2 - y1); // variable a definir a l exterieur
 	double zoom_x = WIDTH / (x2 - x1);
 	double zoom = 100;
-	int iteration_max = 100;
+	int iteration_max = 100;*/
 	int x = 0;
 	int y = 0;
-	double c_r;
+	/*double c_r;
 	double c_i;
 	double z_r;
-	double z_i;
+	double z_i;*/
 	int i = 0;
 	double tmp;
 
@@ -39,20 +39,22 @@ void ft_julia(char *data)
 		y = 0;
 		while (y < WIDTH)
 		{
-			z_r = x / zoom_x + x1;
-			z_i = y / zoom_y + y1;
-			c_r = 0.285;
-			c_i = 0.01;
+			e->z_r = x / e->zoom_x + e->x1;
+			e->z_i = y / e->zoom_y + e->y1;
+			e->c_r = 0.285;
+			e->c_i = 0.01;
 			i = 0;
-			while (i < iteration_max && ((z_r * z_r) + (z_i * z_i)) < 4)
+			while (i < e->i_max && ((e->z_r * e->z_r) + (e->z_i * e->z_i)) < 4)
 			{
-				tmp = z_r;
-				z_r = z_r * z_r - z_i * z_i + c_r;
-				z_i = 2 * z_i * tmp + c_i;
+				tmp = e->z_r;
+				e->z_r = e->z_r * e->z_r - e->z_i * e->z_i + e->c_r;
+				e->z_i = 2 * e->z_i * tmp + e->c_i;
 				i++;
 			}
-			if (i == iteration_max)
-				put_pixel(data, x, y, 0xffffff);
+			if (i == e->i_max)
+				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
+			else
+				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
 			y++;
 		}
 		x++;
@@ -61,22 +63,12 @@ void ft_julia(char *data)
 
 void ft_mandelbrot(t_env *e)
 {
-	/*double x1 = -2.1;
-	double x2 = 0.6;
-	double y1 = -1.2;
-	double y2 = 1.2;*/
-	/*double zoom_y = HEIGHT / (y2 - y1); // variable a definir a l exterieur
-	double zoom_x = WIDTH / (x2 - x1);*/
-	//int iteration_max = 50;
-	int x = 0;
-	int y = 0;
-	//double c_r;
-	//double c_i;
-	//double z_r;
-	//double z_i;
-	int i = 0;
+	int x;
+	int y;
+	int i;
 	double tmp;
-
+	
+	y = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -94,8 +86,45 @@ void ft_mandelbrot(t_env *e)
 				e->z_i = 2 * e->z_i * tmp + e->c_i;
 				i++;
 			}
-			if (i != e->i_max)
-				put_pixel(e->data, x, y, 0xffffff);
+			if (i == e->i_max)
+				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
+			else
+				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
+			x++;
+		}
+		y++;
+	}
+}
+
+void ft_burningship(t_env *e)
+{
+	int x;
+	int y;
+	int i;
+	double tmp;
+	
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			e->c_r = x / e->zoom_x + e->x1;
+			e->c_i = y / e->zoom_y + e->y1;
+			e->z_r = 0;
+			e->z_i = 0;
+			i = 0;
+			while (i < e->i_max && ((e->z_r * e->z_r) + (e->z_i * e->z_i)) < 4)
+			{
+				tmp = e->z_r;
+				e->z_r = ft_abs_d(e->z_r * e->z_r) - e->z_i * e->z_i + e->c_r;
+				e->z_i = 2 * ft_abs_d(e->z_i) * ft_abs_d(tmp) + e->c_i;
+				i++;
+			}
+			if (i == e->i_max)
+				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
+			else
+				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
 			x++;
 		}
 		y++;
