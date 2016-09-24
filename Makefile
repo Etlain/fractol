@@ -6,7 +6,7 @@
 #    By: mmouhssi <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 09:06:02 by mmouhssi          #+#    #+#              #
-#*   Updated: 2016/04/02 22:43:21 by mmouhssi         ###   ########.fr       *#
+#*   Updated: 2016/09/24 17:01:55 by mmouhssi         ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = fractol
 
 LIB = libft/libft.a
 
-SRC = main.c hook.c fractal.c put_pixel.c
+SRC = main.c hook.c fractal.c put_pixel.c init_fract.c key_hook.c
 
 PATH_SRC = sources/
 

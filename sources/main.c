@@ -6,80 +6,14 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/24 14:43:39 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/24 17:02:46 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <mlx.h>
-//#include "minilibx_macos/mlx.h"
-//#include <fcntl.h>
 #include "../includes/fractol.h"
-
-
 
 #include <stdio.h>
 // iteration, zoom, deplacement
-
-void	init_julia(t_env *e)
-{
-	/*e->mlx = NULL;
-	e->win = NULL;
-	e->img = NULL;*/
-	e->mouse = 0;
-	e->f = 1;
-	e->fractal = 2;
-	e->x1 = -2;
-	e->x2 = 2;//0.6;
-	e->y1 = -2.4;//-1.2;
-	e->y2 = 2.4;//1.2;
-	e->zoom_y = HEIGHT / (e->y2 - e->y1);
-	e->zoom_x = WIDTH / (e->x2 - e->x1);
-	e->i_max = 100;
-	e->b = 0;
-}
-
-void	init_mandel(t_env *e)
-{
-	/*e->mlx = NULL;
-	e->win = NULL;
-	e->img = NULL;*/
-	e->fractal = 1;
-	e->x1 = -2.1;
-	e->x2 = 0.6;
-	e->y1 = -1.2;
-	e->y2 = 1.2;
-	e->zoom_y = HEIGHT / (e->y2 - e->y1);
-	e->zoom_x = WIDTH / (e->x2 - e->x1);
-	e->i_max = 50;
-	e->b = 0;
-}
-
-void	init_burning(t_env *e)
-{
-	/*e->mlx = NULL;
-	e->win = NULL;
-	e->img = NULL;*/
-	e->fractal = 3;
-	e->x1 = -3;//-2.1;
-	e->x2 = 2;//0.6;
-	e->y1 = -3;//-1.2;
-	e->y2 = 2;//1.2;
-	e->zoom_y = HEIGHT / (e->y2 - e->y1);
-	e->zoom_x = WIDTH / (e->x2 - e->x1);
-	e->i_max = 50;
-	e->b = 0;
-}
-
-void	init_fract(t_env *e)
-{
-	if (e->fractal == 1)
-		init_mandel(e);
-	else if (e->fractal == 2)
-		init_julia(e);
-	else if (e->fractal == 3)
-		init_burning(e);
-}
-
 void param(t_env *e, char **argv, int argc)
 {
 	if (argc == 2)
@@ -95,23 +29,12 @@ void param(t_env *e, char **argv, int argc)
 			ft_printf("param :\nburningship\nmandelbrot\njulia\n");
 			exit(0);
 		}
-
 	}
 	else
 	{
 		ft_printf("param :\n\tburningship\n\tmandelbrot\n\tjulia\n");
 		exit(0);
 	}
-}
-
-void	ft_fractal(t_env *e)
-{
-	if (e->fractal == 1)
-		ft_mandelbrot(e);
-	else if (e->fractal == 2)
-		ft_julia(e);
-	else if (e->fractal == 3)
-		ft_burningship(e);
 }
 
 int main(int argc, char **argv)
@@ -131,7 +54,6 @@ int main(int argc, char **argv)
 	e.img = mlx_new_image(e.mlx, WIDTH, HEIGHT);
 	e.data = mlx_get_data_addr(e.img, &bpp, &sizeline, &endian);
 	ft_fractal(&e);
-	//ft_printf("test : %x\n", 0x000000ff);
 	mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_destroy_image(e.mlx, e.img);
 	mlx_hook(e.win, 2, 1, key_hook, &e);
