@@ -6,14 +6,13 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 19:17:24 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/23 23:51:19 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/24 14:49:52 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
 #include <stdio.h>
-
 int		close_hook(void)
 {
 	exit(0);
@@ -41,11 +40,21 @@ int		expose_hook(t_env *e)
 int		pos_mouse(int x, int y, t_env *e)
 {
 //	double h;
-//	double w;	
-	e->mx = (double)x / e->zoom_x + e->x1;
-	e->my = (double)y / e->zoom_y + e->y1;
-	printf("%f\n", e->mx);
-	//printf("%f %f\n", e->mx, e->my);
+//	double w;
+	double tmp;	
+	
+	if (e->mouse == 1)
+	{
+		e->mx = (double)x / e->zoom_x + e->x1;
+		e->my = (double)y / e->zoom_y + e->y1;
+		tmp = e->mx * e->my;
+		if (tmp != 0)
+			e->f = tmp;
+		printf("test %f\n", tmp);
+		e->b = 1;
+		//printf("%f\n", e->mx);
+		//printf("%f %f\n", e->mx, e->my);
+	}
 	return (0);
 }
 
@@ -53,7 +62,7 @@ double	ft_abs_d(double nbr)
 {
 	return (nbr > 0 ? nbr : (nbr * -1));
 }
-
+/*
 int		mouse_hook(int button, int x, int y, t_env *e)
 {
 	double middle;
@@ -134,7 +143,7 @@ int		mouse_hook(int button, int x, int y, t_env *e)
 		//e->y2 += e->my - e->y1 + middle; //+ 1;
 		e->b = 1;
 	}
-	/*if (button == 2)
+	if (button == 2)
 	{
 		e->x1 = e->mx + 1;
 		e->x2 = e->mx - 1;
@@ -143,10 +152,10 @@ int		mouse_hook(int button, int x, int y, t_env *e)
 		e->zoom_x = e->zoom_x / 1.1;
 		e->zoom_y = e->zoom_y / 1.1;
 		e->b = 1;
-	}*/
+	}
 	return (0);
 }
-
+*/
 
 void	direction(int keycode, t_env *e)
 {
@@ -223,6 +232,24 @@ int		key_hook(int keycode, t_env *e)
 		e->fractal = 3;
 		init_fract(e);
 		e->b = 1;
+	}
+	else if (keycode == 75)
+	{
+		if (e->i_max > 10)
+			e->i_max -= 10;
+		e->b = 1;
+	}
+	else if (keycode == 67)
+	{
+		e->i_max += 10;
+		e->b = 1;
+	}
+	else if (keycode == 35)
+	{
+		if (e->mouse == 1)
+			e->mouse = 0;
+		else if (e->mouse == 0)
+			e->mouse = 1;
 	}
 	direction(keycode, e);
 	return (0);

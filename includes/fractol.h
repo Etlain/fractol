@@ -6,7 +6,7 @@
 /*   By: mmouhssi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/21 12:42:15 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/23 23:27:58 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/24 14:22:25 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct	s_env
 	void *img;
 	char *data;
 	int fractal;
+	int mouse;
+	double f;
 	double mx;
 	double my;
 	double x1;

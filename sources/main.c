@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/23 23:46:48 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/24 14:43:39 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_julia(t_env *e)
 	/*e->mlx = NULL;
 	e->win = NULL;
 	e->img = NULL;*/
+	e->mouse = 0;
+	e->f = 1;
 	e->fractal = 2;
 	e->x1 = -2;
 	e->x2 = 2;//0.6;
@@ -123,27 +125,19 @@ int main(int argc, char **argv)
 	bpp = 0;
 	sizeline = 0;
 	endian = 0;
-	//init_env(&e);
-	//init_julia(&e);
-	//init_burning(&e);
-	//init_mander(&e);
 	param(&e, argv, argc);
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "test");
 	e.img = mlx_new_image(e.mlx, WIDTH, HEIGHT);
 	e.data = mlx_get_data_addr(e.img, &bpp, &sizeline, &endian);
 	ft_fractal(&e);
-	//ft_julia(&e);
-	//ft_mandelbrot(&e);
-	//ft_burningship(&e);
-	//put_pixel(data, 100, 100, 0xffffff);
 	//ft_printf("test : %x\n", 0x000000ff);
 	mlx_put_image_to_window(e.mlx, e.win, e.img, 0, 0);
 	mlx_destroy_image(e.mlx, e.img);
 	mlx_hook(e.win, 2, 1, key_hook, &e);
-	//mlx_hook(e.win, 6, 1, pos_mouse, &e);
+	mlx_hook(e.win, 6, 1, pos_mouse, &e);
 	mlx_hook(e.win, 17, 1, close_hook, NULL);
-	mlx_mouse_hook(e.win, mouse_hook, &e);
+	//mlx_mouse_hook(e.win, mouse_hook, &e);
 	mlx_loop_hook(e.mlx, expose_hook, &e);
 	mlx_loop(e.mlx);
 	return (0);

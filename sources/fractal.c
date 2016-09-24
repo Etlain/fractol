@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/23 22:30:20 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/24 14:28:08 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,11 @@
 #include <stdio.h>
 void ft_julia(t_env *e)
 {
-	/*double x1 = -1;
-	double x2 = 1;
-	double y1 = -1.2;
-	double y2 = 1.2;
-	double zoom_y = HEIGHT / (y2 - y1); // variable a definir a l exterieur
-	double zoom_x = WIDTH / (x2 - x1);
-	double zoom = 100;
-	int iteration_max = 100;*/
 	int x = 0;
 	int y = 0;
-	/*double c_r;
-	double c_i;
-	double z_r;
-	double z_i;*/
 	int i = 0;
 	double tmp;
 
-	//double image_x = ((x2 - x1) * zoom);
-	//double image_y = ((y2 - y1) * zoom);
 	while (x < HEIGHT)
 	{
 		y = 0;
@@ -41,8 +27,8 @@ void ft_julia(t_env *e)
 		{
 			e->z_r = x / e->zoom_x + e->x1;
 			e->z_i = y / e->zoom_y + e->y1;
-			e->c_r = 0.285;
-			e->c_i = 0.01;
+			e->c_r = 0.285 * e->f;
+			e->c_i = 0.01 * e->f;
 			i = 0;
 			while (i < e->i_max && ((e->z_r * e->z_r) + (e->z_i * e->z_i)) < 4)
 			{
@@ -87,8 +73,12 @@ void ft_mandelbrot(t_env *e)
 				i++;
 			}
 			if (i == e->i_max)
+				//put_pixel(e->data, x, y, i * 0xffa500 / e->i_max);
+				//put_pixel(e->data, x, y, i * 0xff / e->i_max);
 				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
 			else
+				//put_pixel(e->data, x, y, i * 0xffff / e->i_max);
+				//put_pixel(e->data, x, y, i * 0xff / e->i_max);
 				put_pixel(e->data, x, y, i * 0xffff / e->i_max);
 			x++;
 		}
