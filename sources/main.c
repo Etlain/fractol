@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/16 23:50:42 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/26 15:11:08 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/26 15:47:42 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ static void	param(t_env *e, char **argv, int argc)
 
 static void	key(void)
 {
-	ft_putstr("fleches    :\tdeplacements\n");
-	ft_putstr("zoom       :\t+ - molette\n");
-	ft_putstr("fractales  :\t1 2 3\n");
-	ft_putstr("iterations :\t/ *\n");
-	ft_putstr("param julia:\tp\n");
-	ft_putstr("quitter    :\techap\n");
+	ft_putstr("fleches      :\tdeplacements\n");
+	ft_putstr("zoom         :\t+ - molette\n");
+	ft_putstr("reinitialiser:\tr\n");
+	ft_putstr("fractales    :\t1 2 3\n");
+	ft_putstr("iterations   :\t/ *\n");
+	ft_putstr("param julia  :\tp\n");
+	ft_putstr("quitter      :\techap\n");
 }
 
 int			main(int argc, char **argv)
