@@ -28,7 +28,9 @@ ML = minilibx_macos/libmlx.a
 
 FRAMEWORK = -framework OpenGL -framework AppKit
 
-all: 
+all: $(NAME)
+
+$(NAME): 
 	make $(LIBFT)
 	make $(MINILIB)
 	gcc -o $(NAME) $(addprefix $(PATH_SRC), $(SRC)) $(LIB) $(ML) $(FRAMEWORK)

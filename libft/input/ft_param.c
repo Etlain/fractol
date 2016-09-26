@@ -6,7 +6,7 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/03 15:37:25 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/23 22:51:06 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/26 15:33:57 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	nbr_param(char *param, int (*f)(char c))
 
 static void	add_param(char *str, char *s, char param, int *j)
 {
-	if (str == NULL ||(str != NULL && ft_strchr(str, param) == NULL))
+	if (str == NULL || (str != NULL && ft_strchr(str, param) == NULL))
 	{
 		if (ft_strchr(s, param) == NULL)
 		{
@@ -57,10 +57,10 @@ static void	fill_str(char **str, char *s)
 
 static void	param(char **str, char *param, int (*f)(char c))
 {
-	char *tmp;
-	char *s;
-	int i;
-	int j;
+	char	*tmp;
+	char	*s;
+	int		i;
+	int		j;
 
 	s = (char *)ft_memalloc((size_t)nbr_param(param, f) + 1);
 	i = 0;
@@ -83,10 +83,10 @@ static void	param(char **str, char *param, int (*f)(char c))
 	fill_str(str, s);
 }
 
-char	*ft_param(char **argv, int argc, int (*f)(char c))
+char		*ft_param(char **argv, int argc, int (*f)(char c))
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 1;
 	str = NULL;

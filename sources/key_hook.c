@@ -6,14 +6,13 @@
 /*   By: mmouhssi <mmouhssi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 19:17:24 by mmouhssi          #+#    #+#             */
-/*   Updated: 2016/09/24 16:59:50 by mmouhssi         ###   ########.fr       */
+/*   Updated: 2016/09/26 15:11:11 by mmouhssi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-#include <stdio.h>
-void	direction(int keycode, t_env *e)
+static void	direction(int keycode, t_env *e)
 {
 	if (keycode == 123)
 	{
@@ -39,12 +38,9 @@ void	direction(int keycode, t_env *e)
 		e->y2 -= 100 / e->zoom_y;
 		e->b = 1;
 	}
-	printf("key : %d\n", keycode);
-	//printf("val x : %f, %f\n", e->x1, e->x2);
-	//printf("val y : %f, %f\n", e->y1, e->y2);
 }
 
-void	key_init(int keycode, t_env *e)
+static void	key_init(int keycode, t_env *e)
 {
 	if (keycode == 15)
 	{
@@ -71,7 +67,7 @@ void	key_init(int keycode, t_env *e)
 	}
 }
 
-void	zoom_iter(int keycode, t_env *e)
+static void	zoom_iter(int keycode, t_env *e)
 {
 	if (keycode == 69)
 	{
@@ -98,7 +94,7 @@ void	zoom_iter(int keycode, t_env *e)
 	}
 }
 
-int		key_hook(int keycode, t_env *e)
+int			key_hook(int keycode, t_env *e)
 {
 	if (keycode == 53)
 	{
